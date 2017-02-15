@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>RegularJS • TodoMVC</title>
+    <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+    <!-- <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css"> -->
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+    <div id="todoapp"></div>
+    <script type="template/regular" id="todomvc">
+        <div>
+            <h1>todos-regularjs</h1>
+            <input id="new-todo" on-enter={ this.newTodo(editTodo) } placeholder="What needs to be done?" r-model={editTodo}>
+        </div>
+        <section id="main">
+            <input id="toggle-all" type="checkbox"
+                on-change = {this.toggleAll(this.getList('all').length == this.getList('completed').length)}
+                checked={this.getList('all').length == this.getList('completed').length} >
+            <label for="toggle-all">Mark all as complete</label>
+            <ul id="todo-list">
+            {#list this.getList(filter) as todo}
+                <li r-class={{'completed': todo.completed, 'editing': todo.editing}}>
+                    <div class="view">
+                        <input class="toggle" type="checkbox" r-model = {todo.completed}>
+                        <label on-dblclick={todo.editing = true}>{todo.description}</label>
+                        <button on-click = {todos.splice(todo_index, 1)} class="destroy"></button>
+                    </div>
+                    <input class="edit" on-enter={todo.editing = false} r-model={todo.description}>
+                </li>
+            {/list}
+            </ul>
+        </section>
+        <footer id="footer">
+            <span id="todo-count"> <strong>{this.getList('active').length}</strong>
+            {this.getList('active').length>1? "items left": "item left"}            
+            </span>
+            <ul id="filters">
+              <li> <a r-class={{"selected": filter === 'all'}} on-click = {filter = "all"}>All</a> </li>
+              <li> <a r-class={{"selected": filter === 'active'}} on-click = {filter = "active"}>Active</a> </li>
+              <li> <a r-class={{"selected": filter === 'completed'}} on-click = {filter = "completed"}>Completed</a> </li>
+            </ul>
+            <button id="clear-completed" on-click={this.clearCompleted()} r-hide={this.getList('completed').length === 0}>Clear completed ({this.getList('completed').length})</button>
+        </footer>
+    </script>
+  <footer id="info">
+       <p>Double-click to edit a todo</p>
+       <p>Created by lxj</p>
+       <p>Refer to <a href="regularjs.github.io/guide/zh/demo/todomvc.html">regularjs.github.io/guide/zh/demo/todomvc.html</a></p>
+       <p>
+         Part of
+         <a href="http://todomvc.com">TodoMVC</a>
+       </p>
+    </footer>
+
+    <!-- 引入regular.js -->
+    <script src="https://rawgit.com/regularjs/regular/master/dist/regular.js"></script>
+
+    <script> 
+    // on-enter事件注册
+    var dom = Regular.dom;
+    Regular.event('enter', function(elem, fire) {
+        function update(ev){
+            if(ev.which === 13) {
+                ev.preventDefault();
+                fire(ev);
+            }
+        }
+        dom.on(elem, "keypress", update);
+    })
+    //利用Regular构建你的app吧
+    var TodoMVC = Regular.extend({
+        template: '#todomvc',
+        
+        getList: function(filter) {
+            if (!filter || filter === "all") {
+                return this.data.todos;
+            } 
+            else return this.data.todos.filter(function(item){
+                return filter === "completed"? item.completed: !item.completed;
+            }); 
+        },
+
+        toggleAll: function(sign) {
+        this.data.todos.filter(function(item){
+            item.completed = !sign;
+        });
+        },
+
+        newTodo: function(editTodo) {
+            this.data.todos.unshift({"description": editTodo});
+            this.data.editTodo = "";
+        },
+
+        clearCompleted: function() {
+            this.data.todos = this.data.todos.filter(function(item) {
+                return !item.completed;
+            })
+        },
+        computed: {
+            allLength: "this.getList('all').length",
+            activeLength: "this.getList('active').length",
+            completedLength: "this.getList('completed').length",
+            allCompleted: "this.getList('all').length == this.getList('completed').length"
+        },
+    });
+    var todos = [
+        {completed: true, description: "sleep"},
+        {completed: false, description: "work"}
+    ];
+    // initialize component then $inject to #app's  bottom
+    var app = new TodoMVC({
+      data: {todos: todos, username: "lxj", filter: "all"}
+    });
+    app.$inject('#todoapp');  
+    </script>
+</body>
+</html>

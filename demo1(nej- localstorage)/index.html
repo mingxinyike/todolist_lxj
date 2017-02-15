@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>NEJ • TodoMVC</title>
+        <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+        <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+        <!-- <link rel="stylesheet" href="css/app.css"> -->
+    </head>
+    <body>
+        <section id="todoapp">
+            <header id="header">
+                <h1>todos-NEJ</h1>
+                <input id="new-todo" placeholder="What needs to be done?" autofocus>
+            </header>
+            <section id="main">
+                <input id="toggle-all" type="checkbox">
+                <label for="toggle-all">Mark all as complete</label>
+                <ul id="todo-list"></ul>                
+            </section>
+            <footer id="footer"></footer>
+        </section>
+        <footer id="info">
+            <p>Double-click to edit a todo</p>
+            <p>Created by lxj</a></p>
+            <p>Refer to <a href="http://todomvc.com/examples/backbone/">backbone todos</a></p>
+            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+        </footer>
+        <textarea id="todo-template" style="display:none;">
+            {if !defined("todos")} 
+                <li>未定义todos</li>
+            {elseif todos&&todos.length}
+                {list todos as x}
+                    <li {if x.completed == true} class="completed"{/if} data-id=${x.id}>
+                        <div class="view">
+                            <input class="toggle" type="checkbox" {if x.completed == true}checked{/if}>
+                            <label>${x.title}</label>
+                            <button class="destroy"></button>
+                        </div>
+                        <input class="edit" value=${x.title}>
+                    </li>
+                {/list}
+            {/if}
+        </textarea>
+        <textarea id="footer-template" style="display:none;">
+            <span id="todo-count"><strong>${activeTodoCount}</strong> ${activeTodoWord} left</span>
+            <ul id="filters">
+                <li>
+                    <a {if filter&&filter=="all"}class="selected"{/if} href="#/all">All</a>
+                </li>
+                <li>
+                    <a {if filter&&filter=="active"}class="selected"{/if} href="#/active">Active</a>
+                </li>
+                <li>
+                    <a {if filter&&filter=="selected"}class="selected"{/if} href="#/completed">Completed</a>
+                </li>
+            </ul>
+            {if completedTodos>0}<button id="clear-completed">Clear completed (${completedTodos})</button>{/if}
+        </textarea>
+        
+        <script src="node_modules/todomvc-common/base.js"></script>
+        <script src="http://nej.netease.com/nej/src/define.js?pro=./"></script>
+        <script src="node_modules/director/build/director.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
