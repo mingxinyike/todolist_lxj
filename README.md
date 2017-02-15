@@ -13,18 +13,18 @@
 
 #学习资源
 ## 库／框架
-[NEJ](http://nej.netease.com/help/index.html)
-[MCSS](https://github.com/leeluolee/mcss)
-[RegularJS](https://github.com/regularjs/regular)
+- [NEJ](http://nej.netease.com/help/index.html)
+- [MCSS](https://github.com/leeluolee/mcss)
+- [RegularJS](https://github.com/regularjs/regular)
 
 ## todolist demo
-[todos-jquery](https://github.com/tastejs/todomvc/tree/gh-pages/examples/jquery)
-[todos-backbone](https://github.com/tastejs/todomvc/tree/gh-pages/examples/backbone)
-[todoMVC-regular](http://regularjs.github.io/guide/zh/demo/todomvc.html)
+- [todos-jquery](https://github.com/tastejs/todomvc/tree/gh-pages/examples/jquery)
+- [todos-backbone](https://github.com/tastejs/todomvc/tree/gh-pages/examples/backbone)
+- [todoMVC-regular](http://regularjs.github.io/guide/zh/demo/todomvc.html)
 
 ## 服务器 + 数据库
-nodejs HTTP 服务： 《Node.JS实战》
-[mongoDB install](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
-[mongo shell](https://docs.mongodb.com/manual/mongo/)
-[nodejs 操作mongoldb](http://mongodb.github.io/node-mongodb-native/2.1/tutorials/)
+- nodejs HTTP 服务： 《Node.JS实战》
+- [mongoDB install](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+- [mongo shell](https://docs.mongodb.com/manual/mongo/)
+- [nodejs 操作mongoldb](http://mongodb.github.io/node-mongodb-native/2.1/tutorials/)
 
